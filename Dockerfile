@@ -15,14 +15,14 @@ COPY --from=build /app/target/*.jar app.jar
 # Expose the port the app runs on
 EXPOSE 8080
 
-# Set environment variables with defaults
-ENV spring.datasource.url=${spring.datasource.url}
-ENV spring.datasource.username=${spring.datasource.username}
-ENV spring.datasource.password=${spring.datasource.password}
-ENV spring.jpa.hibernate.ddl-auto=update
-ENV server.port=${PORT}
-ENV spring.mvc.cors.allowed-origins=${spring.mvc.cors.allowed-origins}
-ENV spring.mvc.cors.allowed-methods=${spring.mvc.cors.allowed-methods}
+# Set environment variables with underscores (Docker doesn't support dots in ENV names)
+ENV SPRING_DATASOURCE_URL=${SPRING_DATASOURCE_URL}
+ENV SPRING_DATASOURCE_USERNAME=${SPRING_DATASOURCE_USERNAME}
+ENV SPRING_DATASOURCE_PASSWORD=${SPRING_DATASOURCE_PASSWORD}
+ENV SPRING_JPA_HIBERNATE_DDL_AUTO=update
+ENV SERVER_PORT=${PORT}
+ENV SPRING_MVC_CORS_ALLOWED_ORIGINS=${SPRING_MVC_CORS_ALLOWED_ORIGINS}
+ENV SPRING_MVC_CORS_ALLOWED_METHODS=${SPRING_MVC_CORS_ALLOWED_METHODS}
 
 # Run the application
 ENTRYPOINT ["java", "-jar", "app.jar"]
