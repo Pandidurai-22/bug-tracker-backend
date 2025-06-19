@@ -9,7 +9,11 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api/bugs")
-@CrossOrigin(origins = "*") // Allow all origins for now - secure this in production
+@CrossOrigin(origins = {"https://bugtrackerclient-mu.vercel.app", "http://localhost:3000"}, 
+    allowCredentials = "true",
+    allowedHeaders = "*",
+    methods = {RequestMethod.GET, RequestMethod.POST, RequestMethod.PUT, 
+              RequestMethod.DELETE, RequestMethod.OPTIONS, RequestMethod.HEAD})
 public class BugController {
 
     @Autowired
