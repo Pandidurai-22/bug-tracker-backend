@@ -9,7 +9,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api/bugs")
-// CORS is handled by CorsFilter
+@CrossOrigin(origins = "*") // Allow all origins for now - secure this in production
 public class BugController {
 
     @Autowired
