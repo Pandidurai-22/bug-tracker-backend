@@ -9,7 +9,6 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api/bugs")
-@CrossOrigin(origins = "*") // Allow all origins for now - secure this in production
 public class BugController {
 
     @Autowired
