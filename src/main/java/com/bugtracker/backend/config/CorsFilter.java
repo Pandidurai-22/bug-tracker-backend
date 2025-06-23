@@ -24,8 +24,11 @@ public class CorsFilter implements Filter {
         String origin = request.getHeader("Origin");
         log.info("CORS Filter - Request from origin: {}", origin);
         
+        // Validate origin - replace with your frontend URL in production
+        String allowedOrigin = "https://bugtrackerclient-mu.vercel.app";
+        
         // Set CORS headers
-        response.setHeader("Access-Control-Allow-Origin", "*");
+        response.setHeader("Access-Control-Allow-Origin", allowedOrigin);
         response.setHeader("Vary", "Origin");
         response.setHeader("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, OPTIONS, PATCH");
         response.setHeader("Access-Control-Max-Age", "3600");
