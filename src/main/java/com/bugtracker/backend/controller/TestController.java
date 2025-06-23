@@ -7,6 +7,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 @RestController
+@RequestMapping("/api")  // Add base path for all endpoints in this controller
 public class TestController {
 
     @GetMapping("/test")
