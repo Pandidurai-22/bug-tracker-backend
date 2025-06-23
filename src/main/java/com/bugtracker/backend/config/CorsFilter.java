@@ -7,7 +7,9 @@ import java.io.IOException;
 import org.springframework.core.Ordered;
 import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Component;
+import lombok.extern.slf4j.Slf4j;
 
+@Slf4j
 @Component
 @Order(Ordered.HIGHEST_PRECEDENCE)
 public class CorsFilter implements Filter {
@@ -19,27 +21,36 @@ public class CorsFilter implements Filter {
         HttpServletResponse response = (HttpServletResponse) res;
         HttpServletRequest request = (HttpServletRequest) req;
 
+        String origin = request.getHeader("Origin");
+        log.info("CORS Filter - Request from origin: {}", origin);
+        
+        // Set CORS headers
         response.setHeader("Access-Control-Allow-Origin", "*");
-        response.setHeader("Access-Control-Allow-Methods", "POST, GET, PUT, OPTIONS, DELETE, PATCH");
+        response.setHeader("Vary", "Origin");
+        response.setHeader("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, OPTIONS, PATCH");
         response.setHeader("Access-Control-Max-Age", "3600");
-        response.setHeader("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept, Authorization");
-        response.setHeader("Access-Control-Expose-Headers", "Location");
+        response.setHeader("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept, Accept-Encoding, Accept-Language, Host, Referer, Connection, User-Agent, Authorization, authorization, token, X-XSRF-TOKEN, X-Requested-With");
+        response.setHeader("Access-Control-Expose-Headers", "*");
         response.setHeader("Access-Control-Allow-Credentials", "true");
 
+        // Handle preflight requests
         if ("OPTIONS".equalsIgnoreCase(request.getMethod())) {
+            log.info("CORS Filter - Handling OPTIONS preflight request");
             response.setStatus(HttpServletResponse.SC_OK);
-        } else {
-            chain.doFilter(req, res);
+            return;
         }
+
+        log.info("CORS Filter - Proceeding with request: {} {}", request.getMethod(), request.getRequestURI());
+        chain.doFilter(req, res);
     }
 
     @Override
     public void init(FilterConfig filterConfig) {
-        // Not needed
+        log.info("CORS Filter initialized");
     }
 
     @Override
     public void destroy() {
-        // Not needed
+        log.info("CORS Filter destroyed");
     }
 }
