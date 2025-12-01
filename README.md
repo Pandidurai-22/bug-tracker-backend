@@ -159,16 +159,16 @@ mvnw spring-boot:run
 Screenshots for reference 
 
 1.Home Page 
-![Home Page](../bug-tracker-backend/assets/Home.png)
+![Home Page](./assets/Home.png)
 
 2.Dashboard Page
-![Dashboard Page](../bug-tracker-backend/assets/Dashboard.png)
+![Dashboard Page](./assets/Dashboard.png)
 
 3.Create Bug Page
-![Create Bug Page](../bug-tracker-backend/assets/create-bug(before).png)
+![Create Bug Page](./assets/create-bug(before).png)
 
 4.Edit Bug Page
-![Edit Bug Page](../bug-tracker-backend/assets/edit-bug(after).png)
+![Edit Bug Page](./assets/create-bug(after).png)
 
 📝 Future Enhancements
 
