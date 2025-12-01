@@ -172,9 +172,8 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 **Pandidurai S**  
 💼 Full-Stack Software Engineer (1.5+ years experience)  
-📧 your.email@example.com  
-🔗 [LinkedIn](https://linkedin.com/in/yourprofile)  
-🐦 [Twitter](https://twitter.com/yourhandle)
+📧 pandidurai32127@gmail.com  
+🔗 [LinkedIn](https://in.linkedin.com/in/pandidurai-s-6a30b8212)  
 
 ## 🙏 Acknowledgments
 
