@@ -155,6 +155,21 @@ mvnw spring-boot:run
 
 3️⃣ Open http://localhost:8080 in your browser
 
+
+Screenshots for reference 
+
+1.Home Page 
+![Home Page](../bug-tracker-backend/assets/Home.png)
+
+2.Dashboard Page
+![Dashboard Page](../bug-tracker-backend/assets/Dashboard.png)
+
+3.Create Bug Page
+![Create Bug Page](../bug-tracker-backend/assets/create-bug(before).png)
+
+4.Edit Bug Page
+![Edit Bug Page](../bug-tracker-backend/assets/edit-bug(after).png)
+
 📝 Future Enhancements
 
 Real-time notifications (Socket.io)
