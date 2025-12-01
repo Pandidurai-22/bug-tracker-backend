@@ -167,8 +167,8 @@ Screenshots for reference
 3.Create Bug Page
 ![Create Bug Page](./assets/create-bug(before).png)
 
-4.Edit Bug Page
-![Edit Bug Page](./assets/create-bug(after).png)
+4.AI Create Bug Page 
+![AI Create Bug Page](./assets/create-bug(after).png)
 
 📝 Future Enhancements
 
