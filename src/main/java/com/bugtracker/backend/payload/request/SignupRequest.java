@@ -1,8 +1,7 @@
-// src/main/java/com/bugtracker/backend/payload/request/SignupRequest.java
 package com.bugtracker.backend.payload.request;
 
 import java.util.Set;
-import javax.validation.constraints.*;
+import jakarta.validation.constraints.*;
 
 public class SignupRequest {
     @NotBlank
@@ -15,11 +14,12 @@ public class SignupRequest {
     private String email;
 
     private Set<String> role;
-    
+
     @NotBlank
     @Size(min = 6, max = 40)
     private String password;
 
+    // Getters and setters
     public String getUsername() {
         return username;
     }
@@ -47,7 +47,7 @@ public class SignupRequest {
     public Set<String> getRole() {
         return this.role;
     }
-    
+
     public void setRole(Set<String> role) {
         this.role = role;
     }

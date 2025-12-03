@@ -1,7 +1,7 @@
 // src/main/java/com/bugtracker/backend/payload/request/LoginRequest.java
 package com.bugtracker.backend.payload.request;
 
-import javax.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotBlank;
 
 public class LoginRequest {
     @NotBlank

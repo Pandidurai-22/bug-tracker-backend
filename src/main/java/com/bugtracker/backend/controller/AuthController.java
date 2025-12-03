@@ -1,6 +1,15 @@
-// src/main/java/com/bugtracker/backend/controllers/AuthController.java
 package com.bugtracker.backend.controller;
 
+import jakarta.validation.Valid;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.web.bind.annotation.*;
 import com.bugtracker.backend.model.ERole;
 import com.bugtracker.backend.model.Role;
 import com.bugtracker.backend.model.User;
@@ -12,17 +21,7 @@ import com.bugtracker.backend.repository.RoleRepository;
 import com.bugtracker.backend.repository.UserRepository;
 import com.bugtracker.backend.security.jwt.JwtUtils;
 import com.bugtracker.backend.security.services.UserDetailsImpl;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
-import org.springframework.security.authentication.AuthenticationManager;
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.web.bind.annotation.*;
 
-import javax.validation.Valid;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -82,9 +81,9 @@ public class AuthController {
         }
 
         // Create new user's account
-        User user = new User(signUpRequest.getUsername(), 
-                             signUpRequest.getEmail(),
-                             encoder.encode(signUpRequest.getPassword()));
+        User user = new User(signUpRequest.getUsername(),
+                signUpRequest.getEmail(),
+                encoder.encode(signUpRequest.getPassword()));
 
         Set<String> strRoles = signUpRequest.getRole();
         Set<Role> roles = new HashSet<>();
@@ -95,31 +94,31 @@ public class AuthController {
             roles.add(userRole);
         } else {
             strRoles.forEach(role -> {
-                switch (role.toLowerCase()) {
-                case "admin":
-                    Role adminRole = roleRepository.findByName(ERole.ROLE_ADMIN)
-                            .orElseThrow(() -> new RuntimeException("Error: Role is not found."));
-                    roles.add(adminRole);
-                    break;
-                case "manager":
-                    Role managerRole = roleRepository.findByName(ERole.ROLE_MANAGER)
-                            .orElseThrow(() -> new RuntimeException("Error: Role is not found."));
-                    roles.add(managerRole);
-                    break;
-                case "developer":
-                    Role developerRole = roleRepository.findByName(ERole.ROLE_DEVELOPER)
-                            .orElseThrow(() -> new RuntimeException("Error: Role is not found."));
-                    roles.add(developerRole);
-                    break;
-                case "tester":
-                    Role testerRole = roleRepository.findByName(ERole.ROLE_TESTER)
-                            .orElseThrow(() -> new RuntimeException("Error: Role is not found."));
-                    roles.add(testerRole);
-                    break;
-                default:
-                    Role userRole = roleRepository.findByName(ERole.ROLE_USER)
-                            .orElseThrow(() -> new RuntimeException("Error: Role is not found."));
-                    roles.add(userRole);
+                switch (role) {
+                    case "admin":
+                        Role adminRole = roleRepository.findByName(ERole.ROLE_ADMIN)
+                                .orElseThrow(() -> new RuntimeException("Error: Role is not found."));
+                        roles.add(adminRole);
+                        break;
+                    case "manager":
+                        Role managerRole = roleRepository.findByName(ERole.ROLE_MANAGER)
+                                .orElseThrow(() -> new RuntimeException("Error: Role is not found."));
+                        roles.add(managerRole);
+                        break;
+                    case "developer":
+                        Role developerRole = roleRepository.findByName(ERole.ROLE_DEVELOPER)
+                                .orElseThrow(() -> new RuntimeException("Error: Role is not found."));
+                        roles.add(developerRole);
+                        break;
+                    case "tester":
+                        Role testerRole = roleRepository.findByName(ERole.ROLE_TESTER)
+                                .orElseThrow(() -> new RuntimeException("Error: Role is not found."));
+                        roles.add(testerRole);
+                        break;
+                    default:
+                        Role userRole = roleRepository.findByName(ERole.ROLE_USER)
+                                .orElseThrow(() -> new RuntimeException("Error: Role is not found."));
+                        roles.add(userRole);
                 }
             });
         }
