@@ -58,7 +58,7 @@ public class SecurityConfig {
     }
 
     @Bean
-    public CorsConfiguration corsConfigurationSource(){
+    public org.springframework.web.cors.CorsConfigurationSource corsConfigurationSource(){
         CorsConfiguration configuration = new CorsConfiguration();
         configuration.setAllowedOrigins(Arrays.asList("http://localhost:3000", "https://bugtrackerclient-mu.vercel.app"));
         configuration.setAllowedMethods(Arrays.asList("GET", "POST", "PUT", "DELETE", "OPTIONS"));
@@ -75,8 +75,8 @@ public class SecurityConfig {
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception{
         http
-            // .cors(Customizer.withDefaults())
-            .cors(cors -> cors.corsConfigurationSource(corsConfigurationSource()))
+            // Enable CORS using the configuration source bean
+            .cors(cors -> cors.configurationSource(corsConfigurationSource()))
             .csrf(csrf -> csrf.disable())
             .exceptionHandling(exception -> exception.authenticationEntryPoint(unauthorizedHandler))
             .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
@@ -85,7 +85,7 @@ public class SecurityConfig {
                     // .requestMatchers(HttpMethod.OPTIONS, "/**").permitAll()
                     .requestMatchers("/api/auth/**").permitAll()
                     .requestMatchers("/api/test/**").permitAll()
-                    .requestMatchers("/api/bug/**").permitAll()
+                    .requestMatchers("/api/bugs/**").permitAll()
                     .anyRequest().authenticated()
         );
     
