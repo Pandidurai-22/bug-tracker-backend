@@ -24,21 +24,21 @@ public class WebConfig implements WebMvcConfigurer {
             .allowCredentials(true);
     }
 
-    @Bean 
-    public CorsFilter corsFilter() {
-        UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
-        CorsConfiguration config = new CorsConfiguration();
-        config.setAllowCredentials(true);
-        config.addAllowedOriginPattern("http://localhost:3000");
-        config.addAllowedOriginPattern("https://bugtrackerclient-mu.vercel.app");
-        config.addAllowedHeader("*");
-        config.addAllowedMethod("OPTIONS");
-        config.addAllowedHeader("GET");
-        config.addAllowedHeader("POST");
-        config.addAllowedHeader("PUT");
-        config.addAllowedHeader("DELETE");
-        config.addAllowedHeader("PATCH");
-        source.registerCorsConfiguration("/**", config);
-        return new CorsFilter(source);
-    }
+    // @Bean 
+    // public CorsFilter corsFilter() {
+    //     UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
+    //     CorsConfiguration config = new CorsConfiguration();
+    //     config.setAllowCredentials(true);
+    //     config.addAllowedOriginPattern("http://localhost:3000");
+    //     config.addAllowedOriginPattern("https://bugtrackerclient-mu.vercel.app");
+    //     config.addAllowedHeader("*");
+    //     config.addAllowedMethod("OPTIONS");
+    //     config.addAllowedHeader("GET");
+    //     config.addAllowedHeader("POST");
+    //     config.addAllowedHeader("PUT");
+    //     config.addAllowedHeader("DELETE");
+    //     config.addAllowedHeader("PATCH");
+    //     source.registerCorsConfiguration("/**", config);
+    //     return new CorsFilter(source);
+    // }
 }
