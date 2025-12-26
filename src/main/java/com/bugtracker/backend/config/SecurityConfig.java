@@ -54,13 +54,78 @@ public class SecurityConfig {
 
     @Bean
     public PasswordEncoder passwordEncoder() {
-        return new BCryptPasswordEncoder();
+        // Using strength 10 as a good balance between security and performance
+        // The default is 10, but explicitly setting it for clarity
+        return new BCryptPasswordEncoder(10);
+    }
+
+    // @Bean
+    // public org.springframework.web.cors.CorsConfigurationSource corsConfigurationSource(){
+    //     CorsConfiguration configuration = new CorsConfiguration();
+    //     configuration.setAllowedOrigins(Arrays.asList("http://localhost:3000", "https://bugtrackerclient-mu.vercel.app"));
+    //     configuration.setAllowedMethods(Arrays.asList("GET", "POST", "PUT", "DELETE", "OPTIONS"));
+    //     configuration.setAllowedHeaders(Arrays.asList("*"));
+    //     configuration.setAllowCredentials(true);
+    //     configuration.setExposedHeaders(Arrays.asList("Authorization"));
+    //     configuration.setMaxAge(3600L);
+
+    //     UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
+    //     source.registerCorsConfiguration("/**", configuration);
+    //     return source;
+    // }
+
+    // @Bean
+    // public SecurityFilterChain filterChain(HttpSecurity http) throws Exception{
+    //     http
+    //         // Enable CORS using the configuration source bean
+    //         .cors(cors -> cors.configurationSource(corsConfigurationSource()))
+    //         .csrf(csrf -> csrf.disable())
+    //         .exceptionHandling(exception -> exception.authenticationEntryPoint(unauthorizedHandler))
+    //         .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
+    //         .authorizeHttpRequests(auth -> 
+    //             auth
+    //                 // .requestMatchers(HttpMethod.OPTIONS, "/**").permitAll()
+    //                 .requestMatchers("/api/auth/**").permitAll()
+    //                 .requestMatchers("/api/test/**").permitAll()
+    //                 .requestMatchers("/api/bugs/**").permitAll()
+    //                 .anyRequest().authenticated()
+    //     );
+    
+    //     http.authenticationProvider(authenticationProvider());
+    //     http.addFilterBefore(authenticationJwtTokenFilter(), UsernamePasswordAuthenticationFilter.class);
+    
+    //     return http.build();
+    // }
+
+    @Bean
+    public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
+        http
+            .cors(cors -> cors.configurationSource(corsConfigurationSource()))
+            .csrf(csrf -> csrf.disable())
+            .exceptionHandling(exception -> exception.authenticationEntryPoint(unauthorizedHandler))
+            .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
+            .authorizeHttpRequests(auth -> 
+                auth
+                    .requestMatchers("/api/auth/**").permitAll()
+                    .requestMatchers("/api/test/**").permitAll()
+                    .requestMatchers("/api/bugs/**").permitAll()
+                    .anyRequest().authenticated()
+            );
+    
+        http.authenticationProvider(authenticationProvider());
+        http.addFilterBefore(authenticationJwtTokenFilter(), UsernamePasswordAuthenticationFilter.class);
+
+        return http.build();
     }
 
     @Bean
-    public org.springframework.web.cors.CorsConfigurationSource corsConfigurationSource(){
+    public CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration configuration = new CorsConfiguration();
-        configuration.setAllowedOrigins(Arrays.asList("http://localhost:3000", "https://bugtrackerclient-mu.vercel.app"));
+        configuration.setAllowedOrigins(Arrays.asList(
+            "http://localhost:3000", 
+            "https://bugtrackerclient-mu.vercel.app",
+            "http://localhost:8080"
+        ));
         configuration.setAllowedMethods(Arrays.asList("GET", "POST", "PUT", "DELETE", "OPTIONS"));
         configuration.setAllowedHeaders(Arrays.asList("*"));
         configuration.setAllowCredentials(true);
@@ -70,28 +135,5 @@ public class SecurityConfig {
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
         source.registerCorsConfiguration("/**", configuration);
         return source;
-    }
-
-    @Bean
-    public SecurityFilterChain filterChain(HttpSecurity http) throws Exception{
-        http
-            // Enable CORS using the configuration source bean
-            .cors(cors -> cors.configurationSource(corsConfigurationSource()))
-            .csrf(csrf -> csrf.disable())
-            .exceptionHandling(exception -> exception.authenticationEntryPoint(unauthorizedHandler))
-            .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
-            .authorizeHttpRequests(auth -> 
-                auth
-                    // .requestMatchers(HttpMethod.OPTIONS, "/**").permitAll()
-                    .requestMatchers("/api/auth/**").permitAll()
-                    .requestMatchers("/api/test/**").permitAll()
-                    .requestMatchers("/api/bugs/**").permitAll()
-                    .anyRequest().authenticated()
-        );
-    
-        http.authenticationProvider(authenticationProvider());
-        http.addFilterBefore(authenticationJwtTokenFilter(), UsernamePasswordAuthenticationFilter.class);
-    
-        return http.build();
     }
 }

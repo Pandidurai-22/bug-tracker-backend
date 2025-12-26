@@ -4,12 +4,14 @@ import com.bugtracker.backend.ai.BugAnalysisService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 
 import java.util.List;
 import java.util.Map;
 
 @RestController
 @RequestMapping("/api/ai")
+@ConditionalOnProperty(name="ai.enabled", havingValue="true",matchIfMissing=false)
 public class AIAnalysisController {
 
     private final BugAnalysisService bugAnalysisService;
