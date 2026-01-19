@@ -20,9 +20,9 @@ COPY --from=build /app/target/*.jar app.jar
 EXPOSE 8080
 
 # Set environment variables with defaults
-ENV DATABASE_URL=${DATABASE_URL:-jdbc:postgresql://dpg-d19qmvemcj7s73epn11g-a.singapore-postgres.render.com:5432/bugtracker_db_0xap}
-ENV DB_USERNAME=${DB_USERNAME:-bugtracker_db_0xap_user}
-ENV DB_PASSWORD=${DB_PASSWORD:-Lg7bLQTY42xgZggQzv4q5xP9Fb4r73hA}
+ENV DATABASE_URL=${DATABASE_URL:-jdbc:postgresql://dpg-d5mvgscmrvns73fe7je0-a.singapore-postgres.render.com:5432/bugtracker_db_v9of}
+ENV DB_USERNAME=${DB_USERNAME:-bugtracker_db_v9of_user}
+ENV DB_PASSWORD=${DB_PASSWORD:-GmrZ7HJRqon5Pywfjx6I3zO5Qz1QHvYt}
 ENV SPRING_JPA_HIBERNATE_DDL_AUTO=update
 ENV SPRING_JPA_PROPERTIES_HIBERNATE_DIALECT=org.hibernate.dialect.PostgreSQLDialect
 ENV SERVER_PORT=${PORT:-8080}

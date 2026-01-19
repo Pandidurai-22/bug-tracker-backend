@@ -32,4 +32,8 @@ public class Bug{
 
     private LocalDateTime dueDate;
     private LocalDateTime createdAt;
+    
+    // AI-generated embedding for similarity search (stored as JSON string)
+    @Column(columnDefinition = "TEXT")
+    private String embedding;
 }
