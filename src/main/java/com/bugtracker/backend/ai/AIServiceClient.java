@@ -73,6 +73,8 @@ public class AIServiceClient {
         private List<String> tags;
         private String summary;
         private List<Double> embedding;
+        private Double confidence;  // ML model confidence score
+        private String modelVersion;  // Model version for tracking
     }
     
     @Data

@@ -15,6 +15,9 @@ public class AIAnalysisResponse {
     private List<String> tags;
     private String summary;
     private List<Double> embedding;
+    private Double confidence;  // ML model confidence score (0.0-1.0)
+    private String modelVersion;  // Model version for tracking
+    private Boolean needsReview;  // True if confidence < threshold
     private List<SimilarBugInfo> similarBugs;
     
     @Data

@@ -109,6 +109,14 @@ public class BugService {
                 analysis.setTags(response.getTags());
                 analysis.setSummary(response.getSummary());
                 analysis.setEmbedding(response.getEmbedding());
+                analysis.setConfidence(response.getConfidence());
+                analysis.setModelVersion(response.getModelVersion());
+                // Mark for review if confidence is low
+                if (response.getConfidence() != null && response.getConfidence() < 0.6) {
+                    analysis.setNeedsReview(true);
+                } else {
+                    analysis.setNeedsReview(false);
+                }
                 
                 // Find similar bugs
                 List<AIAnalysisResponse.SimilarBugInfo> similarBugs = findSimilarBugs(bugDescription, 5);
