@@ -111,6 +111,7 @@ public class SecurityConfig {
                     .requestMatchers("/api/auth/**").permitAll()
                     .requestMatchers("/api/test/**").permitAll()
                     .requestMatchers("/api/bugs/**").permitAll()
+                    .requestMatchers("/api/ai/**").permitAll()  // Allow AI endpoints for now
                     .anyRequest().authenticated()
             );
     

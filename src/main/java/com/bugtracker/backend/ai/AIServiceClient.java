@@ -67,13 +67,12 @@ public class AIServiceClient {
     
     @Data
     @JsonIgnoreProperties(ignoreUnknown = true)
-    static class ComprehensiveAnalysisResponse {
-        private String priority;
+    public static class ComprehensiveAnalysisResponse {
         private String severity;
+        private String priority;
+        private List<String> tags;
         private String summary;
         private List<Double> embedding;
-        private Map<String, List<String>> entities;
-        private List<String> suggestions;
     }
     
     @Data
@@ -148,6 +147,7 @@ public class AIServiceClient {
     
     /**
      * Extract entities from bug description
+     * Note: Entities are now part of tags in comprehensive analysis
      */
     public Map<String, List<String>> extractEntities(String bugDescription) {
         try {
@@ -163,7 +163,12 @@ public class AIServiceClient {
             );
             
             if (response.getStatusCode().is2xxSuccessful() && response.getBody() != null) {
-                return response.getBody().getEntities();
+                // Convert tags to entities format
+                Map<String, List<String>> entities = new HashMap<>();
+                if (response.getBody().getTags() != null) {
+                    entities.put("tags", response.getBody().getTags());
+                }
+                return entities;
             }
         } catch (Exception e) {
             logger.error("Error calling AI service for entity extraction: {}", e.getMessage());
@@ -223,26 +228,12 @@ public class AIServiceClient {
     
     /**
      * Get solution suggestions
+     * Note: Solution suggestions not implemented in current AI service
+     * Returns empty list - can be extended later
      */
     public List<String> suggestSolutions(String bugDescription) {
-        try {
-            ComprehensiveAnalysisRequest request = new ComprehensiveAnalysisRequest(bugDescription);
-            HttpHeaders headers = new HttpHeaders();
-            headers.setContentType(MediaType.APPLICATION_JSON);
-            HttpEntity<ComprehensiveAnalysisRequest> entity = new HttpEntity<>(request, headers);
-            
-            ResponseEntity<ComprehensiveAnalysisResponse> response = restTemplate.postForEntity(
-                aiServiceUrl + "/analyze/comprehensive",
-                entity,
-                ComprehensiveAnalysisResponse.class
-            );
-            
-            if (response.getStatusCode().is2xxSuccessful() && response.getBody() != null) {
-                return response.getBody().getSuggestions();
-            }
-        } catch (Exception e) {
-            logger.error("Error calling AI service for solution suggestions: {}", e.getMessage());
-        }
+        // Solution suggestions not implemented in current lightweight AI service
+        // Can be added later if needed
         return new ArrayList<>();
     }
 }

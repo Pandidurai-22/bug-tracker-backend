@@ -13,8 +13,6 @@ import java.time.LocalDateTime;
 @Builder
 @Getter
 @Setter
-
-
 public class Bug{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -25,6 +23,11 @@ public class Bug{
     private String description;
 
     private String priority;
+    private String severity;  // AI-predicted severity
+    
+    @Column(length = 500)
+    private String tags;  // Comma-separated tags from AI
+    
     private String status;
 
     private String assignee;
@@ -32,4 +35,9 @@ public class Bug{
 
     private LocalDateTime dueDate;
     private LocalDateTime createdAt;
+    
+    // AI analysis metadata
+    @Column(name = "ai_analyzed")
+    @Builder.Default
+    private Boolean aiAnalyzed = false;  // Whether AI analysis was performed
 }
