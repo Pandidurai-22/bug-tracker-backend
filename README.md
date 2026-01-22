@@ -246,7 +246,7 @@ The system supports 5 roles:
 
 | admin overview | Admin Dashboard |
 |-----------|-----------|
-| ![Home Page](./assets/admin1.png) | ![Dashboard Page](./assets/admin-dash.png) |
+| ![Home Page](./assets/admin1.png) | ![Dashboard Page](./assets/admin-dash.png) ![users](./assets/Home.png) |
 
 
 | Users | Bugs and edit bugs |
