@@ -235,7 +235,7 @@ The system supports 5 roles:
 
 | Home Page | Dashboard |
 |-----------|-----------|
-| ![Home Page](./assets/Home.png) | ![Dashboard Page](./assets/Dashboard.png) |
+| ![Home Page](./assets/first.png) | ![Dashboard Page](./assets/Dashboard.png) |
 
 | Create Bug | AI Analysis |
 |------------|-------------|
@@ -244,11 +244,9 @@ The system supports 5 roles:
 
 ## 📸 Admin login Screenshots
 
-|Home Page|
-|![Home Page](./assets/first.png)|
-
-| admin Dashboard |
-| ![Admin Dashboard](./assets/admin-dash.png) |
+| admin overview | Admin Dashboard |
+|-----------|-----------|
+| ![Home Page](./assets/admin1.png) | ![Dashboard Page](./assets/admin-dash.png) |
 
 | admin overview |
 | ![Admin overview](./assets/admin1.png) |
@@ -256,8 +254,8 @@ The system supports 5 roles:
 
 | Users | Bugs and edit bugs |
 |------------|-------------|
-| ![Users](./assets/admin2.png) | ![Bugs](./assets/admin3.png)[edit bugs](./assets/admin4.png) |
-| ![Settings](./assets/admin5.png) |
+| ![Users](./assets/admin2.png) | ![Bugs](./assets/admin3.png)|
+| [edit bugs](./assets/admin4.png) | ![Settings](./assets/admin5.png) |
 
 ## 🤝 Contributing
 
