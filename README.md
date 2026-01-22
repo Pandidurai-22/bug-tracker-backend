@@ -248,14 +248,11 @@ The system supports 5 roles:
 |-----------|-----------|
 | ![Home Page](./assets/admin1.png) | ![Dashboard Page](./assets/admin-dash.png) |
 
-| admin overview |
-| ![Admin overview](./assets/admin1.png) |
-
 
 | Users | Bugs and edit bugs |
 |------------|-------------|
 | ![Users](./assets/admin2.png) | ![Bugs](./assets/admin3.png)|
-| [edit bugs](./assets/admin4.png) | ![Settings](./assets/admin5.png) |
+| ![edit bugs](./assets/admin4.png) | ![Settings](./assets/admin5.png) |
 
 ## 🤝 Contributing
 
