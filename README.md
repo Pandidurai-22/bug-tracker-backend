@@ -245,12 +245,13 @@ The system supports 5 roles:
 ## 📸 Admin login Screenshots
 
 |Home Page|
-|----|----|
 |![Home Page](./assets/first.png)|
 
-| admin Dashboard | Admin overview |
-|-----------|-----------|
-| ![Admin Dashboard](./assets/admin-dash.png) | ![Admin overview](./assets/admin1.png) |
+| admin Dashboard |
+| ![Admin Dashboard](./assets/admin-dash.png) |
+
+| admin overview |
+| ![Admin overview](./assets/admin1.png) |
 
 
 | Users | Bugs and edit bugs |
