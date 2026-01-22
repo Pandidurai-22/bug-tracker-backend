@@ -244,14 +244,16 @@ The system supports 5 roles:
 
 ## 📸 Admin login Screenshots
 
+| Admin Dashboard | Users |
+|------------|-------------|
+| ![Admin Dashboard](./assets/admin2.png) | ![Settings](./assets/admin5.png)|
+
 | Admin overview | Bugs and Edit Bugs |
 |-----------|-----------|
 | ![Home Page](./assets/admin1.png) | ![Bugs](./assets/admin3.png) ![Edit Bugs](./assets/admin4.png) |
 
 
-| Admin Dashboard | Users |
-|------------|-------------|
-| ![Admin Dashboard](./assets/admin2.png) | ![Settings](./assets/admin5.png)|
+
 
 ## 🤝 Contributing
 
