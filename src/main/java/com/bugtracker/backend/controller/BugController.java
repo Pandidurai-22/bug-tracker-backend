@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Collections;
 import java.util.List;
 
 @RestController
@@ -50,12 +51,31 @@ public class BugController {
         String fullText = (request.getTitle() != null ? request.getTitle() + " " : "") + 
                          (request.getDescription() != null ? request.getDescription() : "");
         
-        AIAnalysisResponse analysis = bugService.getAIAnalysis(fullText);
+        // Validate text length before calling AI service
+        if (fullText == null || fullText.trim().length() < 3) {
+            // Return default values instead of error
+            AIAnalysisResponse defaultResponse = new AIAnalysisResponse();
+            defaultResponse.setPriority("MEDIUM");
+            defaultResponse.setSeverity("NORMAL");
+            defaultResponse.setTags(Collections.emptyList());
+            defaultResponse.setConfidence(0.5);
+            defaultResponse.setNeedsReview(true);
+            return ResponseEntity.ok(defaultResponse);
+        }
+        
+        AIAnalysisResponse analysis = bugService.getAIAnalysis(fullText.trim());
         
         if (analysis != null) {
             return ResponseEntity.ok(analysis);
         } else {
-            return ResponseEntity.badRequest().build();
+            // Return default values if AI service fails
+            AIAnalysisResponse defaultResponse = new AIAnalysisResponse();
+            defaultResponse.setPriority("MEDIUM");
+            defaultResponse.setSeverity("NORMAL");
+            defaultResponse.setTags(Collections.emptyList());
+            defaultResponse.setConfidence(0.5);
+            defaultResponse.setNeedsReview(true);
+            return ResponseEntity.ok(defaultResponse);
         }
     }
     
