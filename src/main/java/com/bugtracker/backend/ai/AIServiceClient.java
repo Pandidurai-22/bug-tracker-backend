@@ -188,9 +188,6 @@ public class AIServiceClient {
             headers.setContentType(MediaType.APPLICATION_JSON);
             HttpEntity<ComprehensiveAnalysisRequest> entity = new HttpEntity<>(request, headers);
             
-            logger.info("Calling AI service at: {}/analyze/comprehensive", aiServiceUrl);
-            logger.debug("Request payload: {}", bugDescription);
-            
             ResponseEntity<ComprehensiveAnalysisResponse> response = restTemplate.postForEntity(
                 aiServiceUrl + "/analyze/comprehensive",
                 entity,
@@ -198,17 +195,10 @@ public class AIServiceClient {
             );
             
             if (response.getStatusCode().is2xxSuccessful() && response.getBody() != null) {
-                ComprehensiveAnalysisResponse body = response.getBody();
-                logger.info("AI service response - Tags: {}, Severity: {}, Priority: {}", 
-                    body.getTags(), body.getSeverity(), body.getPriority());
-                return body;
-            } else {
-                logger.warn("AI service returned non-2xx status: {}", response.getStatusCode());
+                return response.getBody();
             }
-        } catch (HttpClientErrorException e) {
-            logger.error("HTTP error calling AI service: {} - {}", e.getStatusCode(), e.getResponseBodyAsString());
         } catch (Exception e) {
-            logger.error("Error calling AI service for comprehensive analysis: {}", e.getMessage(), e);
+            logger.error("Error calling AI service for comprehensive analysis: {}", e.getMessage());
         }
         return null;
     }
