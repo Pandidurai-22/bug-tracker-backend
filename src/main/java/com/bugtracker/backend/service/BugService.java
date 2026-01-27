@@ -93,20 +93,34 @@ public class BugService {
      * Get AI analysis for bug description
      */
     public AIAnalysisResponse getAIAnalysis(String bugDescription) {
-        if (!aiEnabled || aiServiceClient == null) {
+        if (!aiEnabled) {
+            System.err.println("AI is disabled in configuration");
+            return null;
+        }
+        
+        if (aiServiceClient == null) {
+            System.err.println("AI Service Client is null - check if AI service is available");
             return null;
         }
         
         try {
+            System.out.println("Calling AI service with description: " + bugDescription.substring(0, Math.min(50, bugDescription.length())));
+            
             // Call comprehensive analysis endpoint
             AIServiceClient.ComprehensiveAnalysisResponse response = 
                 aiServiceClient.getComprehensiveAnalysis(bugDescription);
             
             if (response != null) {
+                System.out.println("AI Service Response received - Tags: " + 
+                    (response.getTags() != null ? response.getTags() : "null") + 
+                    ", Severity: " + response.getSeverity() + 
+                    ", Priority: " + response.getPriority());
+                
                 AIAnalysisResponse analysis = new AIAnalysisResponse();
                 analysis.setSeverity(response.getSeverity());
                 analysis.setPriority(response.getPriority());
-                analysis.setTags(response.getTags());
+                // Ensure tags list is not null
+                analysis.setTags(response.getTags() != null ? response.getTags() : Collections.emptyList());
                 analysis.setSummary(response.getSummary());
                 analysis.setEmbedding(response.getEmbedding());
                 analysis.setConfidence(response.getConfidence());
@@ -123,9 +137,12 @@ public class BugService {
                 analysis.setSimilarBugs(similarBugs);
                 
                 return analysis;
+            } else {
+                System.err.println("AI Service returned null response");
             }
         } catch (Exception e) {
             System.err.println("Error getting AI analysis: " + e.getMessage());
+            e.printStackTrace();
         }
         
         return null;
