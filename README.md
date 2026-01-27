@@ -63,6 +63,19 @@ A full-stack bug tracking application with AI-powered analysis for efficient iss
 
 > **📖 For detailed setup instructions, see [STARTUP_GUIDE.md](./STARTUP_GUIDE.md)**
 
+### AI Setup
+
+```bash
+# Clone the repository
+git clone https://github.com/Pandidurai-22/Bug-Tracker-AI.git
+cd bug-tracker-ai
+pip install -r requirements.txt
+
+# run to start uvicorn server localhost:8000
+python ./main.py
+```
+
+
 ### Backend Setup
 
 ```bash
