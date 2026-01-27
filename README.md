@@ -96,6 +96,9 @@ mvn spring-boot:run
 ### Frontend Setup
 
 ```bash
+# frontend cloning 
+git clone https://github.com/Pandidurai-22/Bug-Tracker.git
+
 # In a new terminal
 cd ../bug-tracker-client
 npm install
