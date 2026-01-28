@@ -57,7 +57,7 @@ A full-stack bug tracking application with AI-powered analysis for efficient iss
 - npm 9.x or higher
 - (Optional) AI Service running on port 8000 for AI features
 
-**Note**: Database is pre-configured with Render PostgreSQL. No local database setup required!
+**Note**: Database configuration is externalized using environment variables. A managed PostgreSQL instance was used during development.
 
 ## 🚀 Quick Start
 
@@ -87,9 +87,7 @@ cd bug-tracker-backend
 mvn spring-boot:run
 ```
 
-**Note**: The backend automatically creates default users on first startup:
-- **Admin**: `admin` / `admin123`
-- **Test User**: `testing` / `testing123`
+**Note**: The backend automatically creates default users on first startup for local development and demo purposes.
 
 > **🔐 For admin access details, see [ADMIN_LOGIN.md](./ADMIN_LOGIN.md)**
 
@@ -108,24 +106,39 @@ npm start
 The application will be available at:
 - Frontend: http://localhost:3000
 - Backend API: http://localhost:8080/api
-- Health Check: http://localhost:8080/api/test/all
 
 ## 🔧 Configuration
 
-### Environment Variables
+### 🌱 Environment Variables
+
+**Backend Environment Variables:**
+- `DB_URL` - PostgreSQL database connection URL
+- `DB_USERNAME` - Database username
+- `DB_PASSWORD` - Database password
+- `JWT_SECRET` - Secret key for JWT token signing
+- `AI_ENABLED` - Enable/disable AI features (true/false)
+- `AI_SERVICE_URL` - URL of the AI microservice (default: http://localhost:8000)
+- `AI_SERVICE_TIMEOUT` - Timeout for AI service requests in milliseconds (default: 30000)
+
+**Frontend Environment Variables:**
 Create `.env` file in the frontend root:
 ```env
 REACT_APP_API_URL=http://localhost:8080/api
 ```
 
 ### Database Configuration
-✅ **Database is pre-configured!** The backend uses Render PostgreSQL. No local setup needed.
+Database configuration is managed through environment variables for security and flexibility.
 
-If you need to use a different database, update `application.properties`:
+Configure your database connection using environment variables:
+- `DB_URL` - PostgreSQL connection URL
+- `DB_USERNAME` - Database username
+- `DB_PASSWORD` - Database password
+
+Alternatively, you can update `application.properties` for local development:
 ```properties
-spring.datasource.url=jdbc:postgresql://your-db-url
-spring.datasource.username=your-username
-spring.datasource.password=your-password
+spring.datasource.url=${DB_URL:jdbc:postgresql://localhost:5432/bugtracker}
+spring.datasource.username=${DB_USERNAME:postgres}
+spring.datasource.password=${DB_PASSWORD:password}
 ```
 
 ### AI Service Configuration
@@ -148,7 +161,8 @@ ai.enabled=false
 ### Security Configuration
 - **JWT Token Expiration**: 24 hours (86400000ms)
 - **CORS**: Configured for `http://localhost:3000` and `https://bugtrackerclient-mu.vercel.app`
-- **Current Security**: All bug and AI endpoints are publicly accessible (for development)
+- **Authentication**: JWT-based authentication with role-based access control
+- **Security**: Security policies can be tightened for production environments without changing business logic
 
 ## 📚 API Documentation
 
@@ -211,11 +225,11 @@ ai.enabled=false
 ### AI Analysis Endpoints
 > **Note**: These endpoints require `ai.enabled=true` and AI service running.
 
-- `POST /api/ai/analyze/priority?description={text}` - Predict bug priority
-- `POST /api/ai/analyze/severity?description={text}` - Predict bug severity
-- `POST /api/ai/analyze/entities?description={text}` - Extract entities from description
-- `POST /api/ai/analyze/similar?description={text}&limit={n}` - Find similar bugs
-- `POST /api/ai/suggest/solutions?description={text}` - Suggest solutions for bugs
+**AI Capabilities:**
+- Bug priority and severity prediction
+- Similar bug detection using embeddings
+- Automated tagging and classification
+- Optional AI-powered solution suggestions
 
 ### Test Endpoints (Role-based Access)
 - `GET /api/test/all` - Public access (no authentication required)
@@ -232,6 +246,15 @@ The system supports 5 roles:
 - **ROLE_DEVELOPER** - Developer-specific access
 - **ROLE_MANAGER** - Manager-level access
 - **ROLE_ADMIN** - Full administrative access
+
+## 🔐 Security Notes
+
+This project is intended for learning and demonstration purposes.
+
+- **Sensitive Configuration**: All sensitive values (credentials, JWT secrets, database configuration, AI keys) are externalized using environment variables and are not committed to the repository.
+- **Authentication**: Authentication and role-based authorization are implemented using Spring Security and JWT tokens.
+- **Production Readiness**: Security rules can be tightened for production environments without impacting core business logic.
+- **Best Practices**: The codebase follows security best practices with proper input validation, CORS configuration, and secure password handling.
 
 ### Bug Model Fields
 - `id` - Auto-generated bug ID
