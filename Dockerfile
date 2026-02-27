@@ -19,15 +19,28 @@ COPY --from=build /app/target/*.jar app.jar
 # Expose the port the app runs on
 EXPOSE 8080
 
+# # Set environment variables with defaults
+# ENV DATABASE_URL=${DATABASE_URL:-jdbc:postgresql://dpg-d19qmvemcj7s73epn11g-a.singapore-postgres.render.com:5432/bugtracker_db_0xap}
+# ENV DB_USERNAME=${DB_USERNAME:-bugtracker_db_0xap_user}
+# ENV DB_PASSWORD=${DB_PASSWORD:-Lg7bLQTY42xgZggQzv4q5xP9Fb4r73hA}
+# ENV SPRING_JPA_HIBERNATE_DDL_AUTO=update
+# ENV SPRING_JPA_PROPERTIES_HIBERNATE_DIALECT=org.hibernate.dialect.PostgreSQLDialect
+# ENV SERVER_PORT=${PORT:-8080}
+# ENV SPRING_MVC_CORS_ALLOWED_ORIGINS=${SPRING_MVC_CORS_ALLOWED_ORIGINS:-http://localhost:3000,https://bugtrackerclient-mu.vercel.app}
+# ENV SPRING_MVC_CORS_ALLOWED_METHODS=${SPRING_MVC_CORS_ALLOWED_METHODS:-GET,POST,PUT,DELETE,OPTIONS}
+
+
 # Set environment variables with defaults
-ENV DATABASE_URL=${DATABASE_URL:-jdbc:postgresql://dpg-d19qmvemcj7s73epn11g-a.singapore-postgres.render.com:5432/bugtracker_db_0xap}
-ENV DB_USERNAME=${DB_USERNAME:-bugtracker_db_0xap_user}
-ENV DB_PASSWORD=${DB_PASSWORD:-Lg7bLQTY42xgZggQzv4q5xP9Fb4r73hA}
+ENV DATABASE_URL=${DATABASE_URL:-jdbc:postgresql://dpg-d6gnt5vgi27c73fctc40-a.singapore-postgres.render.com:5432/bugtracker_db1}
+ENV DB_USERNAME=${DB_USERNAME:-bugtracker_db1_user}
+ENV DB_PASSWORD=${DB_PASSWORD:-a5q1qkhQOqoYj44DEdUODAH5nkC5Knri}
 ENV SPRING_JPA_HIBERNATE_DDL_AUTO=update
 ENV SPRING_JPA_PROPERTIES_HIBERNATE_DIALECT=org.hibernate.dialect.PostgreSQLDialect
 ENV SERVER_PORT=${PORT:-8080}
 ENV SPRING_MVC_CORS_ALLOWED_ORIGINS=${SPRING_MVC_CORS_ALLOWED_ORIGINS:-http://localhost:3000,https://bugtrackerclient-mu.vercel.app}
 ENV SPRING_MVC_CORS_ALLOWED_METHODS=${SPRING_MVC_CORS_ALLOWED_METHODS:-GET,POST,PUT,DELETE,OPTIONS}
+
+
 
 # Add healthcheck
 HEALTHCHECK --interval=30s --timeout=3s --start-period=5s --retries=3 \
